@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: du-service
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${mysql-host}:3306/test?characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: ${mysql-pwd}
+    hikari:
+      connection-test-query: select 1
+      minimum-idle: 1
+      idle-timeout: 30000
+      maximum-pool-size: 50
+      pool-name: handsonic
+      auto-commit: false
+      connection-init-sql: SET NAMES utf8mb4
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+
+dubbo:
+  registry:
+    address: zookeeper://${zookeeper-host}:2181
+    simplified: true
+  protocol:
+    name: dubbo
+    port: 20883
+  scan:
+    base-packages: com.example.service.impl
+  monitor:
+    protocol: registry
+#  metadata-report:
+#    address: redis://127.0.0.1:6379
+#    password: clinde0825
+#  application:
+#    metadata-type: remote
+
+
+
